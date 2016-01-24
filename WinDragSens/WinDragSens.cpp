@@ -81,8 +81,6 @@ bool App::Initialize()
 
       /* If LoadAppSettings read valid values from the command line... */
       if (setX || setY) {
-         BOOL success = FALSE;
-
          if (setX) {
             SetDragWidth(xPixels);
          }
@@ -115,7 +113,6 @@ bool App::Initialize()
 
       /* Register the window class. */
       if (!DoRegisterClass()) {
-         DWORD lastError = GetLastError();
          ReportError(IDS_REGISTERCLASS_FAILED);
          retVal = false;
          goto exitinit;
@@ -330,9 +327,9 @@ bool App::LoadAppSettings()
 
          std::string payload = &buf[0];
 
-         std::stringstream cvt;
-         cvt << &buf[0];
-         cvt >> settings;
+         std::stringstream asciiCvt;
+         asciiCvt << &buf[0];
+         asciiCvt >> settings;
 
          success = !!CloseHandle(hFile);
       }
@@ -437,8 +434,8 @@ BOOL App::OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
    ListView_InsertItem(hListView, &lvI);
 
    /* Initialize the edit controls with the current drag settings. */
-   int xPixels = GetSystemMetrics(SM_CXDRAG);
-   int yPixels = GetSystemMetrics(SM_CYDRAG);
+   xPixels = GetSystemMetrics(SM_CXDRAG);
+   yPixels = GetSystemMetrics(SM_CYDRAG);
 
    std::wstringstream cvt;
    cvt << xPixels;
@@ -547,7 +544,6 @@ void App::OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 
          std::wstringstream cvt;
 
-         int xPixels;
          cvt << horizontal;
          cvt >> xPixels;
          SetDragWidth(xPixels);
@@ -555,7 +551,6 @@ void App::OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
          cvt.clear();
          cvt.str(L"");
 
-         int yPixels;
          cvt << vertical;
          cvt >> yPixels;
          SetDragHeight(yPixels);
