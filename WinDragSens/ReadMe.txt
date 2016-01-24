@@ -13,7 +13,7 @@ Changes the default drag sensitivity.
  If no parameters are provided, the application will display a window that
  allows the user to edit the drag sensitivity and test changes.
  
- Version 1.0
+ Version 1.1
  Paul M. Parks
  paul@parkscomputing.com
- http://www.parkscomputing.com/
+ http://www.parkscomputing.com/applications/windragsens/
